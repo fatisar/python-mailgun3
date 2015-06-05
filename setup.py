@@ -9,6 +9,7 @@ setup(
     packages=[mailgun3.__title__],
     version=mailgun3.__version__,
     description='A python client for Mailgun API v3',
+    long_description=open('README.md', 'rt').read(),
     author=mailgun3.__author__,
     author_email='fatisar@gmail.com',
     url='https://github.com/fatisar/python-mailgun3',

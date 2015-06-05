@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+
+import hmac
+import hashlib
 import json
 import requests
 
@@ -7,6 +10,7 @@ BASE_URL = 'https://api.mailgun.net/v3'
 
 class Mailgun(object):
     def __init__(self, api_key, domain):
+        self.key = api_key
         self.auth = ('api', api_key)
         self.base_url = '{0}/{1}'.format(BASE_URL, domain)
 
@@ -111,3 +115,8 @@ class Mailgun(object):
             data['upsert'] = 'yes'
 
         return self.post('/lists/%s/members' % list_name, data, include_domain=False)
+
+    def verify_authenticity(self, token, timestamp, signature):
+        return signature == hmac.new(
+            key=self.key, msg='{}{}'.format(timestamp, token),
+            digestmod=hashlib.sha256).hexdigest()
