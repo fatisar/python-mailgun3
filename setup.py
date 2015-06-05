@@ -2,17 +2,17 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-import mailgun2
+import mailgun3
 
 setup(
-    name=mailgun2.__title__,
-    packages=[mailgun2.__title__],
-    version=mailgun2.__version__,
-    description='A python client for Mailgun API v2',
-    author=mailgun2.__author__,
-    author_email='tech@zerocater.com',
-    url='https://github.com/ZeroCater/python-mailgun2',
-    download_url="https://github.com/ZeroCater/python-mailgun2/archive/%s.tar.gz" % mailgun2.__version__,
+    name=mailgun3.__title__,
+    packages=[mailgun3.__title__],
+    version=mailgun3.__version__,
+    description='A python client for Mailgun API v3',
+    author=mailgun3.__author__,
+    author_email='fatisar@gmail.com',
+    url='https://github.com/fatisar/python-mailgun3',
+    download_url="https://github.com/fatisar/python-mailgun3/archive/%s.tar.gz" % mailgun3.__version__,
     keywords=['mailgun', 'email'],
     install_requires=[
         'requests>=2.6.0',

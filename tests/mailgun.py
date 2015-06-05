@@ -3,14 +3,14 @@ import unittest
 
 from mock import patch, MagicMock
 
-import mailgun2
+import mailgun3
 
 class MailgunTestBase(unittest.TestCase):
     def setUp(self):
         self.api_key = 'test_api_key'
         self.domain = 'test.domain'
-        self.mailgun = mailgun2.Mailgun(self.api_key, self.domain)
-        self.post_patcher = patch('mailgun2.mailgun.requests.post')
+        self.mailgun = mailgun3.Mailgun(self.api_key, self.domain)
+        self.post_patcher = patch('mailgun3.mailgun.requests.post')
         self.mock_post = self.post_patcher.start()
 
     def tearDown(self):
