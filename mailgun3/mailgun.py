@@ -9,18 +9,19 @@ BASE_URL = 'https://api.mailgun.net/v3'
 
 
 class Mailgun(object):
-    def __init__(self, api_key, domain):
-        self.key = api_key
-        self.auth = ('api', api_key)
+    def __init__(self, domain, private_key, public_key):
+        self.private_key = private_key
+        self.public_key = public_key
+        self.auth = ('api', private_key)
         self.base_url = '{0}/{1}'.format(BASE_URL, domain)
 
-    def post(self, path, data, files=None, include_domain=True):
+    def post(self, path, data, auth=None, files=None, include_domain=True):
         url = self.base_url if include_domain else BASE_URL
-        return requests.post(url + path, auth=self.auth, data=data, files=files)
+        return requests.post(url + path, auth=auth or self.auth, data=data, files=files)
 
-    def get(self, path, params=None, include_domain=True):
+    def get(self, path, params=None, auth=None, include_domain=True):
         url = self.base_url if include_domain else BASE_URL
-        return requests.get(url + path, auth=self.auth, params=params)
+        return requests.get(url + path, auth=auth or self.auth, params=params)
 
     def send_message(self, from_email, to, cc=None, bcc=None,
                      subject=None, text=None, html=None, user_variables=None,
@@ -118,5 +119,10 @@ class Mailgun(object):
 
     def verify_authenticity(self, token, timestamp, signature):
         return signature == hmac.new(
-            key=self.key, msg='{}{}'.format(timestamp, token),
+            key=self.private_key, msg='{}{}'.format(timestamp, token),
             digestmod=hashlib.sha256).hexdigest()
+
+    def validate(self, address):
+        params = dict(address=address)
+        auth = ('api', self.public_key)
+        return self.get('/address/validate', params=params, auth=auth, include_domain=False)
