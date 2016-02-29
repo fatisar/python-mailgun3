@@ -1,4 +1,4 @@
-python-mailgun2
+python-mailgun3
 ===============
 
 [![Code Climate](https://codeclimate.com/github/ZeroCater/python-mailgun2/badges/gpa.svg)](https://codeclimate.com/github/ZeroCater/python-mailgun2)
@@ -13,7 +13,7 @@ Python 3 support should be there but is currently untested.
 Installation:
 
 ```shell
-pip install mailgun2
+pip install mailgun3
 ```
 
 Usage:
